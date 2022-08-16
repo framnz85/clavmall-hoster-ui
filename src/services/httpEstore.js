@@ -17,8 +17,12 @@ function getEstores(sortkey, sort, skip, limit, searchText) {
   );
 }
 
-function postEstores({ name }) {
-  return http.post(apiUrl + "allusers/estore", { name });
+function postEstores({
+  name, owner, email, password, urlname1, urlname2, urlname3, estoreName, estoreEmail, estoreSupid, estoreUrlname
+}) {
+  return http.post(apiUrl + "allusers/estore", {
+    name, owner, email, password, urlname1, urlname2, urlname3, status: "pending", estoreName, estoreEmail, estoreSupid, estoreUrlname
+  });
 }
 
 function putEstores({ _id, name }) {

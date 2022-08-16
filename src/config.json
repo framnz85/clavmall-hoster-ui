@@ -1,4 +1,4 @@
 {
-    "apiUrl": "http://localhost:3900/"
-  }
-  
+    "apiUrlLive": "http://localhost:3900/",
+    "apiUrl": "https://clavmall-hoster-api.herokuapp.com/"
+}

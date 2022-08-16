@@ -11,6 +11,8 @@ import LoginForm from "./components/allusers/login.jsx";
 import Logout from "./components/allusers/logout.jsx";
 import httpHostusers from "./services/httpHostusers";
 import Payments from "./components/payments/payment";
+import MigrateRequest from "./components/migrate/request.jsx";
+import MigrateSubmitted from "./components/migrate/requestSubmit.jsx";
 import "./App.css";
 
 class App extends Component {
@@ -36,6 +38,8 @@ class App extends Component {
             <Route path="/estore" component={Estore} />
             <Route path="/logout" component={Logout} />
             <Route path="/payments" component={Payments} />
+            <Route path="/migrate" component={MigrateRequest} />
+            <Route path="/migratesubmitted/:estoreid" component={MigrateSubmitted} />
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/login" exact to="/estore" />
             <Redirect from="/" exact to="/estore" />
@@ -44,6 +48,8 @@ class App extends Component {
         )}
         {!user && (
           <Switch>
+            <Route path="/migrate" component={MigrateRequest} />
+            <Route path="/migratesubmitted/:estoreid" component={MigrateSubmitted} />
             <Route path="/login" component={LoginForm} />
             <Redirect to="/login" />
           </Switch>
