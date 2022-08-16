@@ -6,6 +6,7 @@ class MigrateSubmitted extends Component {
   }
 
   render() {
+    document.title = "Request Submitted";
     return (
       <React.Fragment>
         <div

@@ -89,6 +89,7 @@ class MigrateRequest extends Component {
   };
 
   render() {
+    document.title = "Migration Request";
     const { account, errors } = this.state;
 
     return (
@@ -111,8 +112,12 @@ class MigrateRequest extends Component {
           <div align="center" style={{
             color: "#333",
             fontSize: 18,
+            marginBottom: 20
           }}>
             Migration Request Form (New Platform Info)
+            <button type="button" className="btn btn-primary"
+              onClick={() => window.open("https://vimeo.com/739883065/b98be82fbe", '_blank', 'noopener,noreferrer')}
+            >Watch Video Instruction HERE</button>
           </div>
           <form onSubmit={this.handleSubmit}>
             <Input
