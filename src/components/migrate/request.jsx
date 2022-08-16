@@ -182,7 +182,8 @@ class MigrateRequest extends Component {
               fontSize: 18,
               marginTop: "30px",
             }}>
-              eStore Information (Old Platform Info)
+              eStore Information (Old Platform Info)<br />
+              <a href="https://clavmall.com/e-admin" rel="noreferrer" target="_blank">eStore Admin</a>
             </div>
             <Input
               value={account.estoreName}
