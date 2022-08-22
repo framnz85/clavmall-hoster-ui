@@ -28,9 +28,9 @@ const EstoreTable = (props) => {
     {
       path: "name",
       label: "eStore",
-      content: (estore) => <Link to={"/"}>{estore.name}</Link>,
+      content: (estore) => <Link to={`/estore/${estore._id}`}>{estore.name}</Link>,
     },
-    { key: "estid", label: "ID", content: (estore) => estore._id },
+    { key: "estid", path: "_id", label: "ID", content: (estore) => estore._id },
     {
       key: "modal",
       content: (estore) => (

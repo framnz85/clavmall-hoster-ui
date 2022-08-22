@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import companyLogo from "../../images/clavmall.png";
 
-const Navbar = ({ onClick, onChange }) => {
+const Navbar = ({ onClick, onChange, noSearch }) => {
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light"
@@ -64,22 +64,24 @@ const Navbar = ({ onClick, onChange }) => {
             onClick();
           }}
         >
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            id="searchQuery"
-            name="searchQuery"
-            onChange={onChange}
-          />
-          <button
-            className="btn btn-outline-light"
-            type="button"
-            onClick={() => onClick()}
-          >
-            Search
-          </button>
+          {!noSearch && <>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchQuery"
+              name="searchQuery"
+              onChange={onChange}
+            />
+            <button
+              className="btn btn-outline-light"
+              type="button"
+              onClick={() => onClick()}
+            >
+              Search
+            </button>
+          </>}
           <Link
             className="btn btn-danger"
             style={{ marginLeft: "50px" }}

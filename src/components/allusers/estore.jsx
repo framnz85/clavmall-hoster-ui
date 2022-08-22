@@ -86,6 +86,16 @@ class Estore extends Component {
     this.setState({ inputValues, errors });
   };
 
+  handleSort = (sortName) => {
+    let { sortkey, sort } = { ...this.state };
+
+    if (sortkey === sortName) sort = -sort;
+    else sort = 1;
+
+    sortkey = sortName;
+    this.setState({ sortkey, sort }, () => this.handlePageChange(1));
+  };
+
   render() {
     const { itemsCount, estores, pageSize, currentPage, inputValues, errors } =
       this.state;

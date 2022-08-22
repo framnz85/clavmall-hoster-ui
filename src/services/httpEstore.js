@@ -17,6 +17,13 @@ function getEstores(sortkey, sort, skip, limit, searchText) {
   );
 }
 
+function getEstore(estoreid) {
+  return http.get(
+    apiUrl +
+      "user/estore?estoreid=" + estoreid
+  );
+}
+
 function postEstores({
   name, owner, email, password, urlname1, urlname2, urlname3, estoreName, estoreEmail, estoreSupid, estoreUrlname
 }) {
@@ -37,6 +44,7 @@ function deleteEstores({ _id }) {
 
 const httpEstore = {
   getEstores,
+  getEstore,
   postEstores,
   putEstores,
   deleteEstores,

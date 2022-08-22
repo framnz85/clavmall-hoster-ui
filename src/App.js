@@ -6,6 +6,7 @@ import Addiv1 from "./components/address/addiv1.jsx";
 import Addiv2 from "./components/address/addiv2.jsx";
 import Addiv3 from "./components/address/addiv3.jsx";
 import HostUsers from "./components/allusers/hostusers.jsx";
+import EstoreDetails from "./components/allusers/estoreDetails.jsx";
 import Estore from "./components/allusers/estore.jsx";
 import LoginForm from "./components/allusers/login.jsx";
 import Logout from "./components/allusers/logout.jsx";
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path="/addiv1/:couid" component={Addiv1} />
             <Route path="/hostusers" component={HostUsers} />
             <Route path="/countries" component={Countries} />
+            <Route path="/estore/:estoreid" component={EstoreDetails} />
             <Route path="/estore" component={Estore} />
             <Route path="/logout" component={Logout} />
             <Route path="/payments" component={Payments} />
