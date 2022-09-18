@@ -90,6 +90,7 @@ class LoginForm extends Component {
               name="password"
               label="Password"
               error={errors.password}
+              type="password"
               style={{ color: "#ffffff" }}
             />
             <div

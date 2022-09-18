@@ -1,5 +1,5 @@
 {
-    "apiUrlLive": "http://localhost:3900/",
-    "apiUrl2": "https://clavmall-hoster-api.herokuapp.com/",
-    "apiUrl": "https://davgros.com/api2/"
+    "apiUrl": "http://localhost:3900/",
+    "apiUrlLive": "https://clavmall-hoster-api.herokuapp.com/",
+    "apiUrl2": "https://davgros.com/api2/"
 }

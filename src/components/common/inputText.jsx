@@ -13,7 +13,7 @@ const Input = ({ name, type, label, value, error, onChange, style }) => {
         name={name}
         type={type ? type : "text"}
         className="form-control"
-        style={style}
+        style={{color: "#333"}}
       />
       {error && <div className="alert alert-danger" style={{clear: "both"}}>{error}</div>}
     </div>

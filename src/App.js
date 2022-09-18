@@ -14,6 +14,8 @@ import httpHostusers from "./services/httpHostusers";
 import Payments from "./components/payments/payment";
 import MigrateRequest from "./components/migrate/request.jsx";
 import MigrateSubmitted from "./components/migrate/requestSubmit.jsx";
+import RegisterForm from "./components/register/registerForm.jsx";
+import RegisterSubmitted from "./components/register/registerSubmit.jsx";
 import "./App.css";
 
 class App extends Component {
@@ -42,6 +44,8 @@ class App extends Component {
             <Route path="/payments" component={Payments} />
             <Route path="/migrate" component={MigrateRequest} />
             <Route path="/migratesubmitted/:estoreid" component={MigrateSubmitted} />
+            <Route path="/register" component={RegisterForm} />
+            <Route path="/submitted/:estoreid" component={RegisterSubmitted} />
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/login" exact to="/estore" />
             <Redirect from="/" exact to="/estore" />

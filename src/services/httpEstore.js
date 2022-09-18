@@ -32,6 +32,14 @@ function postEstores({
   });
 }
 
+function postEstores2({
+  name, owner, email, mobile, password, urlname1
+}) {
+  return http.post(apiUrl + "allusers/estore", {
+    name, owner, email, mobile, password, urlname1, status: "pending"
+  });
+}
+
 function putEstores({ _id, name }) {
   return http.put(apiUrl + "allusers/estore/" + _id, {
     name,
@@ -46,6 +54,7 @@ const httpEstore = {
   getEstores,
   getEstore,
   postEstores,
+  postEstores2,
   putEstores,
   deleteEstores,
 };
