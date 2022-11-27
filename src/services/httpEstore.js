@@ -40,10 +40,8 @@ function postEstores2({
   });
 }
 
-function putEstores({ _id, name }) {
-  return http.put(apiUrl + "allusers/estore/" + _id, {
-    name,
-  });
+function putEstores(inputValues) {
+  return http.put(apiUrl + "allusers/estore/" + inputValues._id, inputValues);
 }
 
 function deleteEstores({ _id }) {

@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import Joi from "joi-browser";
+
 import ModalCommon from "../common/modal";
 import httpEstore from "../../services/httpEstore";
+import estoreOptions from "../common/estoreOptions";
 
 const EstoreModal = ({
   type,
@@ -19,6 +21,16 @@ const EstoreModal = ({
   useEffect(() => {
     setModal(new Modal(exampleModal.current));
   }, []);
+
+  useEffect(() => {
+    const duration = estoreOptions.durationOptions.filter(dur => dur.desc === inputValues.duration);
+    const numDays = duration[0] && duration[0].value;
+    if (parseInt(numDays) > 0) {
+      const date = new Date(inputValues.endDate);
+      date.setDate(date.getDate() + parseInt(numDays));
+      inputValues.endDate = date;
+    }
+  }, [inputValues, inputValues.duration]);
 
   const schema = {
     name: Joi.string().min(2).max(255).required(),
@@ -78,6 +90,56 @@ const EstoreModal = ({
       label: "eStore Name",
       error: errors.name,
       value: inputValues.name,
+    },
+    {
+      name: "urlname1",
+      label: "URL Name",
+      error: errors.urlname1,
+      value: inputValues.urlname1,
+    },
+    {
+      name: "duration",
+      label: "Add Duration",
+      type: {
+        name: "select",
+        options: estoreOptions.durationOptions,
+      },
+      value: inputValues.duration,
+    },
+    {
+      name: "endDate",
+      label: "End Date",
+      type: {
+        name: "date",
+      },
+      value: (new Date(inputValues.endDate)).getFullYear() + "-" + String((new Date(inputValues.endDate)).getMonth() + 1).padStart(2, '0') + "-" + String((new Date(inputValues.endDate)).getDate()).padStart(2, '0'),
+    },
+    {
+      name: "planType",
+      label: "Plan Type",
+      type: {
+        name: "select",
+        options: estoreOptions.planOptions,
+      },
+      value: inputValues.planType,
+    },
+    {
+      name: "recurringCycle",
+      label: "Recurring Cycle",
+      type: {
+        name: "select",
+        options: estoreOptions.recurringCycle,
+      },
+      value: inputValues.recurringCycle,
+    },
+    {
+      name: "status",
+      label: "Status",
+      type: {
+        name: "select",
+        options: estoreOptions.statusOptions,
+      },
+      value: inputValues.status,
     },
   ];
 

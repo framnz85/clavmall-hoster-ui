@@ -48,6 +48,17 @@ const ModalCommon = ({
                         error={prop.error}
                         value={prop.value}
                       />
+                    ) : prop.type && prop.type.name === "date" ? (
+                      <Input
+                        key={prop.name}
+                        onChange={onChange}
+                        name={prop.name}
+                        type={prop.type.name}
+                        label={prop.label}
+                        style={{ color: "#333333" }}
+                        error={prop.error}
+                        value={prop.value}
+                      />
                     ) : (
                       <Input
                         key={prop.name}

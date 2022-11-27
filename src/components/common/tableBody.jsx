@@ -2,11 +2,11 @@ import React from "react";
 import _ from "lodash";
 
 const TableBody = (props) => {
-  const { data, columns, currentPage } = props;
+  const { data, columns, currentPage, pageSize } = props;
 
   const renderCell = (item, column, index) => {
     if (column.content) return column.content(item);
-    else if (column.index) return (currentPage - 1) * 10 + index + 1;
+    else if (column.index) return (currentPage - 1) * (pageSize ? pageSize : 10) + index + 1;
 
     return _.get(item, column.path);
   };

@@ -15,6 +15,13 @@ const Navbar = ({ onClick, onChange, noSearch }) => {
         >
           <img src={companyLogo} alt="Clavmall" />
         </Link>
+        <button className="navbar-toggler" onClick={() =>
+          document.getElementById("navbarNav").style.display === "block"
+            ? document.getElementById("navbarNav").style.display = "none"
+            : document.getElementById("navbarNav").style.display = "block"
+        }>
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
@@ -24,6 +31,35 @@ const Navbar = ({ onClick, onChange, noSearch }) => {
                 to="/"
               >
                 eStore
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={{ color: "#ffffff", marginRight: "10px" }}
+                to="/ogpa"
+              >
+                OGPA
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                style={{ color: "#ffffff", marginRight: "10px" }}
+                to="/upgrade"
+              >
+                Upgrades
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                style={{ color: "#ffffff", marginRight: "10px" }}
+                to="/withdraw"
+              >
+                Withdrawals
               </Link>
             </li>
             <li className="nav-item">

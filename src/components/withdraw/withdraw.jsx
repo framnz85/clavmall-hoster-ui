@@ -1,52 +1,55 @@
-import React, { Component } from "react";
-import httpEstore from "../../services/httpEstore";
-import Pagination from "../common/pagination.jsx";
-import Navbar from "../common/navbar.jsx";
-import EstoreTable from "./estoreTable";
+import React, { Component } from 'react'
+import { Pagination } from 'antd';
 
-class Estore extends Component {
+import httpWithdraw from "../../services/httpWithdraw";
+import Navbar from "../common/navbar.jsx";
+import WithdrawTable from './withdrawTable.jsx';
+
+class Withdraw extends Component {
   state = {
-    estores: [],
+    withdrawals: [],
     itemsCount: 0,
     pageSize: 10,
     currentPage: 1,
-    sortkey: "_id",
+    sortkey: "createdAt",
     sort: -1,
     skip: 0,
     inputValues: {
       _id: "",
       name: "",
       searchQuery: "",
+      status: ""
     },
     errors: {},
-  };
-
+    };
+    
   async componentDidMount() {
     const { pageSize, sortkey, sort, skip, inputValues } = this.state;
 
-    const { data } = await httpEstore.getEstores(
+    const { data } = await httpWithdraw.getWithdraw(
       sortkey,
       sort,
       skip,
       pageSize,
       inputValues.searchQuery
     );
-    this.setState({ estores: data.estores, itemsCount: data.length });
+    this.setState({ withdrawals: data.withdrawals, itemsCount: data.length });
   }
 
-  handlePageChange = async (page) => {
-    const { pageSize, sortkey, sort, inputValues } = this.state;
+  handlePageChange = async (page, pageSize) => {
+    const { sortkey, sort, inputValues } = this.state;
     try {
-      const { data } = await httpEstore.getEstores(
+      const { data } = await httpWithdraw.getWithdraw(
         sortkey,
         sort,
-        (page - 1) * 10,
+        (page - 1) * pageSize,
         pageSize,
         inputValues.searchQuery
       );
       this.setState({
-        estores: data.estores,
+        withdrawals: data.withdrawals,
         currentPage: page,
+        pageSize,
       });
     } catch (e) {}
   };
@@ -54,14 +57,14 @@ class Estore extends Component {
   handleSearch = async () => {
     const { pageSize, sortkey, sort, skip, inputValues } = this.state;
     try {
-      const { data } = await httpEstore.getEstores(
+      const { data } = await httpWithdraw.getWithdraw(
         sortkey,
         sort,
         skip,
         pageSize,
         inputValues.searchQuery
       );
-      this.setState({ estores: data.estores, itemsCount: data.length });
+      this.setState({ withdrawals: data.withdrawals, itemsCount: data.length });
     } catch (e) {}
   };
 
@@ -85,6 +88,17 @@ class Estore extends Component {
     this.setState({ inputValues, errors });
   };
 
+  addInputValues = () => {
+    let inputValues = {
+      ...this.state.inputValues,
+      _id: "",
+      name: "",
+      category: "",
+      searchQuery: "",
+    };
+    this.setState({ inputValues });
+  };
+
   handleSort = (sortName) => {
     let { sortkey, sort } = { ...this.state };
 
@@ -96,16 +110,18 @@ class Estore extends Component {
   };
 
   render() {
-    const { itemsCount, estores, pageSize, currentPage, inputValues, errors } =
-      this.state;
-
+    const { itemsCount, withdrawals, pageSize, currentPage, inputValues, errors } =
+          this.state;
+      
     return (
       <React.Fragment>
         <Navbar onClick={this.handleSearch} onChange={this.handleInputChange} />
         <main className="container">
-          <EstoreTable
-            estores={estores}
+          <h4 className="mt-4">Withdrawals</h4>
+          <WithdrawTable
+            withdrawals={withdrawals}
             currentPage={currentPage}
+            pageSize={pageSize}
             handlePageChange={this.handlePageChange}
             handleInputChange={this.handleInputChange}
             handleInputErrors={this.handleInputErrors}
@@ -114,16 +130,18 @@ class Estore extends Component {
             errors={errors}
             onSort={this.handleSort}
           />
-          <Pagination
-            itemsCount={itemsCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
+          <div align="center">
+            <Pagination
+              onChange={this.handlePageChange}
+              current={currentPage}
+              pageSize={pageSize}
+              total={itemsCount}
+            />
+          </div>
         </main>
       </React.Fragment>
     );
   }
 }
 
-export default Estore;
+export default Withdraw;

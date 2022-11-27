@@ -31,6 +31,8 @@ const EstoreTable = (props) => {
       content: (estore) => <Link to={`/estore/${estore._id}`}>{estore.name}</Link>,
     },
     { key: "estid", path: "_id", label: "ID", content: (estore) => estore._id },
+    { key: "urlname1", path: "urlname1", label: "URL Name", content: (estore) => <a href={`https://${estore.urlname1}.clavstore.com`} target="_blank" rel="noreferrer">{estore.urlname1}</a> },
+    { key: "status", path: "status", label: "Status", content: (estore) => <span style={{color: estore.status === "active" ? "green" : "red"}}>{estore.status}</span> },
     {
       key: "modal",
       content: (estore) => (

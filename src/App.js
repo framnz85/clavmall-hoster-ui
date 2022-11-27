@@ -13,9 +13,11 @@ import Logout from "./components/allusers/logout.jsx";
 import httpHostusers from "./services/httpHostusers";
 import Payments from "./components/payments/payment";
 import MigrateRequest from "./components/migrate/request.jsx";
-import MigrateSubmitted from "./components/migrate/requestSubmit.jsx";
 import RegisterForm from "./components/register/registerForm.jsx";
 import RegisterSubmitted from "./components/register/registerSubmit.jsx";
+import OgpaList from "./components/ogpa/ogpaList.jsx";
+import Withdraw from "./components/withdraw/withdraw.jsx";
+import Upgrade from "./components/upgrade/upgrade.jsx";
 import "./App.css";
 
 class App extends Component {
@@ -38,12 +40,14 @@ class App extends Component {
             <Route path="/addiv1/:couid" component={Addiv1} />
             <Route path="/hostusers" component={HostUsers} />
             <Route path="/countries" component={Countries} />
+            <Route path="/ogpa" component={OgpaList} />
             <Route path="/estore/:estoreid" component={EstoreDetails} />
             <Route path="/estore" component={Estore} />
             <Route path="/logout" component={Logout} />
             <Route path="/payments" component={Payments} />
+            <Route path="/withdraw" component={Withdraw} />
+            <Route path="/upgrade" component={Upgrade} />
             <Route path="/migrate" component={MigrateRequest} />
-            <Route path="/migratesubmitted/:estoreid" component={MigrateSubmitted} />
             <Route path="/register" component={RegisterForm} />
             <Route path="/submitted/:estoreid" component={RegisterSubmitted} />
             <Route path="/not-found" component={NotFound} />
@@ -55,7 +59,8 @@ class App extends Component {
         {!user && (
           <Switch>
             <Route path="/migrate" component={MigrateRequest} />
-            <Route path="/migratesubmitted/:estoreid" component={MigrateSubmitted} />
+            <Route path="/register" component={RegisterForm} />
+            <Route path="/submitted/:estoreid" component={RegisterSubmitted} />
             <Route path="/login" component={LoginForm} />
             <Redirect to="/login" />
           </Switch>

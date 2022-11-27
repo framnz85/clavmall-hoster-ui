@@ -3,7 +3,7 @@ import Joi from "joi-browser";
 import httpEstore from "../../services/httpEstore";
 import Input from "../common/inputText";
 
-class MigrateRequest extends Component {
+class RegisterForm extends Component {
   state = {
       account: {
           name: "",
@@ -24,11 +24,19 @@ class MigrateRequest extends Component {
     password: Joi.string()
       .min(5)
       .max(1024)
-      .regex(/[a-zA-Z0-9]{3,30}/)
-      .required(),
+      .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@_$!%*#?&])[A-Za-z\d@_$!%*#?&]{8,}$/)
+      .required().error(() => {
+        return {
+          message: 'Password must have at least one letter, one number and one special character.',
+        };
+      }),
     repassword: Joi.any().valid(Joi.ref('password')).required().options({ language: { any: { allowOnly: 'must match password' } } }),
-    urlname1: Joi.string().required(),
-  };
+    urlname1: Joi.string().regex(/^[a-z0-9]*$/).required().error(() => {
+        return {
+          message: 'Nominated URL Name should only contain lowercase alphanumeric characters (a-z and 0-9 only).',
+        };
+      })
+    };
 
   validate = () => {
     const values = { ...this.state.account };
@@ -54,7 +62,12 @@ class MigrateRequest extends Component {
 
     try {
       const estore = await httpEstore.postEstores2(this.state.account);
-      window.location = "/submitted/" + estore.data._id;
+      if (estore.data.err) {
+        this.setState({ errors: {urlname1: estore.data.err}});
+        if (errors) return;
+      } else {
+        window.location = "/submitted/" + estore.data._id;
+      }
     } catch (e) {
       if (e.response && e.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -149,15 +162,15 @@ class MigrateRequest extends Component {
               value={account.urlname1}
               onChange={this.handleChange}
               name="urlname1"
-              label="Nominated URL Name 1"
+              label="Nominated URL Name"
               error={errors.urlname1}
-              style={{width: "280px", float: "left", clear: "both"}}
+              style={{ width: "280px", float: "left", clear: "both" }}
+              placeholder="ex. juan123onlinegrocery"
             />
+            <b>NOTE:</b> URL Name should only contain small letters (a-z) and numbers (0-9) only. Example is juan123onlinegrocery. <span style={{color: "red"}}>Do not include https:// or clavstore.com, just place <b>juan123onlinegrocery</b> ONLY!</span>
             {account.urlname1.length > 0 && <><br/>
-              <div><h6>You will be given this url:</h6></div>
+              <div><h6>You will be given this urls:</h6></div>
               <div>https://{account.urlname1}.clavstore.com</div>
-              <div>https://{account.urlname1}.clavmall.com</div>
-              <div>https://{account.urlname1}.etnants.com</div>
               <div style={{ clear: "both" }}></div>
             </>}
             <div
@@ -173,4 +186,4 @@ class MigrateRequest extends Component {
   }
 }
 
-export default MigrateRequest;
+export default RegisterForm;
