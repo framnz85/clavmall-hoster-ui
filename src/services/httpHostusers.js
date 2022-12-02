@@ -2,7 +2,7 @@ import http from "./httpService";
 import jwtDecode from "jwt-decode";
 import { apiUrl } from "../config.json";
 
-const tokenKey = "token";
+const tokenKey = "8d17df97833dddfdd1c58b1b5faf763d";
 
 http.setJwt(getJwt());
 

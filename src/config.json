@@ -1,6 +1,6 @@
 {
-    "apiUrlLive": "https://clavmall-hoster-api.herokuapp.com/",
-    "apiUrlLive2": "https://clavmall-hoster-api.herokuapp.com/",
-    "apiUrl": "http://192.168.50.10:3900/",
-    "apiUrl2": "http://192.168.50.10:8000/api/"
+    "apiUrl": "http://hoster-api.clavmall.com:3900/",
+    "apiUrl2": "https://estore-api.clavstore.com/api/",
+    "apiUrlLive": "http://192.168.50.10:3900/",
+    "apiUrlLive2": "http://192.168.50.10:8000/api/"
 }
