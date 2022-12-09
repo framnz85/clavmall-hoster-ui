@@ -18,7 +18,6 @@ function getOgpa(sortkey, sort, skip, limit, searchText) {
 }
 
 function putOgpa(inputValues) {
-  console.log(inputValues)
   return http.put(apiUrl2 + "ogt/ogpa/" + inputValues._id, inputValues);
 }
 

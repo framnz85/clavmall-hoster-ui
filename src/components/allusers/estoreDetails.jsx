@@ -33,20 +33,34 @@ class Estore extends Component {
     this.setState({ estore: data.estore[0] });
   }
 
+  copyUrlname = (textShow) => {
+    navigator.clipboard.writeText(textShow);
+  }
+
+  handleFocus = (event) => event.target.select();
+
   render() {
     const { estore } = this.state;
 
     return (
       <React.Fragment>
         <Navbar noSearch={true} />
-        <main className="container"><br /><br />
-          <b>ID:</b> {estore._id}<br />
-          <b>Name:</b> {estore.name}<br />
-          <b>Owner:</b> {estore.owner}<br />
-          <b>Email:</b> {estore.email}<br />
-          <b>Password:</b> {estore.showPass}<br />
-          <b>Md5 Password:</b> {estore.password}<br />
-          <b>Nominated Urlname 1:</b> {estore.urlname1}<br />
+        <main className="container">
+          <br /><br />
+          <b>ID:</b> {estore._id} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore._id)}>📄</span><br />
+          <b>Name:</b> {estore.name} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.name)}>📄</span><br />
+          <b>Owner:</b> {estore.owner} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.owner)}>📄</span><br />
+          <b>Email:</b> {estore.email} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.email)}>📄</span><br />
+          <b>Password:</b> {estore.showPass} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.showPass)}>📄</span><br />
+          <b>Md5 Password:</b> {estore.password} <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.password)}>📄</span><br />
+          <b>Nominated Urlname 1:</b> <a
+              href={`https://${estore.urlname1}.clavstore.com`}
+              target="_blank"
+              rel="noreferrer"
+              id={`urlname${estore._id}`}
+            >
+              {estore.urlname1}
+            </a> <span style={{ cursor: "pointer" }} onClick={() => this.copyUrlname(estore.urlname1)}>📄</span><br />
           <b>Nominated Urlname 2:</b> {estore.urlname2}<br />
           <b>Nominated Urlname 3:</b> {estore.urlname3}<br /><br />
           <b>Estore Name:</b> {estore.estoreName}<br />
@@ -57,10 +71,12 @@ class Estore extends Component {
           <b>Recurring Cycle:</b> {estore.recurringCycle}<br />
           <b>Status:</b> {estore.status}<br /><br />
 
+          <b>Email:</b><br />
+          <Input value={estore.email} onFocus={this.handleFocus} /><br />
           <b>Subject:</b><br />
-          <Input value={`Creation Complete for Clavstore #${estore._id}`} /><br />
+          <Input value={`Creation Complete for Clavstore #${estore._id}`} onFocus={this.handleFocus} /><br />
           <b>Content:</b><br />
-          <TextArea rows={20} value={
+          <TextArea rows={20} onFocus={this.handleFocus} value={
 `Hi ${estore.owner},
 
 We have just successfully completed the creation of your website.

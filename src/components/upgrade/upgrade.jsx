@@ -50,7 +50,8 @@ class Upgrade extends Component {
     this.setState({ upgrades });
   }
 
-  handlePageChange = async (page, pageSize) => {
+  handlePageChange = async (page) => {
+    const { pageSize } = this.state;
     this.setState({
       currentPage: page,
       pageSize,

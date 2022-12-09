@@ -11,7 +11,6 @@ const OgpaModal = ({
   inputErrors,
   editInput,
   currentPage,
-  pageSize,
   addInput,
   inputValues,
   errors,
@@ -34,7 +33,7 @@ const OgpaModal = ({
       }
 
       modal.hide();
-      onSave(currentPage, pageSize);
+      onSave(currentPage);
     } catch (e) {
       if (e.response) {
         errors.name = e.response.data;
@@ -54,6 +53,16 @@ const OgpaModal = ({
       name: "name",
       label: "Name",
       value: inputValues.name,
+    },
+    {
+      name: "email",
+      label: "Email",
+      value: inputValues.email,
+    },
+    {
+      name: "password",
+      label: "Password",
+      value: inputValues.password,
     },
     {
       name: "dateStart",

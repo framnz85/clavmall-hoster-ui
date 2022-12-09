@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import TableHeader from "../common/tableHeader";
 import TableBody from "../common/tableBody";
 import EstoreModal from "../modals/estore";
+import { notification } from 'antd';
 
 const EstoreTable = (props) => {
+  const [api, contextHolder] = notification.useNotification();
   const {
     estores,
     currentPage,
@@ -28,10 +30,43 @@ const EstoreTable = (props) => {
     {
       path: "name",
       label: "eStore",
-      content: (estore) => <Link to={`/estore/${estore._id}`}>{estore.name}</Link>,
+      content: (estore) =>
+        <>
+          <Link to={`/estore/${estore._id}`}>{estore.name}</Link>{" "}
+          <span style={{ cursor: "pointer" }} onClick={() => copyUrlname(estore.name)}>📄</span>
+        </>,
     },
-    { key: "estid", path: "_id", label: "ID", content: (estore) => estore._id },
-    { key: "urlname1", path: "urlname1", label: "URL Name", content: (estore) => <a href={`https://${estore.urlname1}.clavstore.com`} target="_blank" rel="noreferrer">{estore.urlname1}</a> },
+    {
+      key: "estid",
+      path: "_id",
+      label: "ID",
+      content: (estore) => 
+        <>
+           {estore._id} <span style={{cursor: "pointer"}} onClick={() => copyUrlname(estore._id)}>📄</span>
+        </>
+    },
+    {
+      key: "urlname1",
+      path: "urlname1",
+      label: "URL Name",
+      content: (estore) =>
+        <>
+          <a
+            href={`https://${estore.urlname1}.clavstore.com`}
+            target="_blank"
+            rel="noreferrer"
+            id={`urlname${estore._id}`}
+          >
+            {estore.urlname1}
+          </a>{" "}
+          <span style={{cursor: "pointer"}} onClick={() => copyUrlname(estore.urlname1)}>📄</span>
+        </>
+    },
+    {
+      path: "owner",
+      label: "Owner",
+      content: (estore) => estore.owner,
+    },
     { key: "status", path: "status", label: "Status", content: (estore) => <span style={{color: estore.status === "active" ? "green" : "red"}}>{estore.status}</span> },
     {
       key: "modal",
@@ -57,11 +92,26 @@ const EstoreTable = (props) => {
     },
   ];
 
+  const copyUrlname = (urlname) => {
+    navigator.clipboard.writeText(urlname);
+    openNotification('top', urlname);
+  }
+
+  const openNotification = (placement, urlname) => {
+    api.info({
+      message: `Copied ${urlname}`,
+      placement,
+    });
+  };
+  
   return (
-    <table className="table">
-      <TableHeader columns={columns} onSort={onSort} />
-      <TableBody columns={columns} data={estores} currentPage={currentPage} />
-    </table>
+    <>
+      {contextHolder}
+      <table className="table">
+        <TableHeader columns={columns} onSort={onSort} />
+        <TableBody columns={columns} data={estores} currentPage={currentPage} />
+      </table>
+    </>
   );
 };
 

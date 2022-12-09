@@ -14,8 +14,6 @@ class Estore extends Component {
     sort: -1,
     skip: 0,
     inputValues: {
-      _id: "",
-      name: "",
       searchQuery: "",
     },
     errors: {},
@@ -103,6 +101,7 @@ class Estore extends Component {
       <React.Fragment>
         <Navbar onClick={this.handleSearch} onChange={this.handleInputChange} />
         <main className="container">
+          <h4 className="mt-4">Clavstores</h4>
           <EstoreTable
             estores={estores}
             currentPage={currentPage}

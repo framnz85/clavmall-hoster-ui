@@ -15,11 +15,7 @@ class OgpaList extends Component {
     sort: -1,
     skip: 0,
     inputValues: {
-      _id: "",
-      name: "",
       searchQuery: "",
-      endDate: "",
-      status: ""
     },
     errors: {},
     };
@@ -37,8 +33,8 @@ class OgpaList extends Component {
     this.setState({ ogpa: data.ogpa, itemsCount: data.length });
   }
 
-  handlePageChange = async (page, pageSize) => {
-    const { sortkey, sort, inputValues } = this.state;
+  handlePageChange = async (page) => {
+    const { pageSize, sortkey, sort, inputValues } = this.state;
     try {
       const { data } = await httpOgpa.getOgpa(
         sortkey,
@@ -89,17 +85,6 @@ class OgpaList extends Component {
     this.setState({ inputValues, errors });
   };
 
-  addInputValues = () => {
-    let inputValues = {
-      ...this.state.inputValues,
-      _id: "",
-      name: "",
-      category: "",
-      searchQuery: "",
-    };
-    this.setState({ inputValues });
-  };
-
   handleSort = (sortName) => {
     let { sortkey, sort } = { ...this.state };
 
@@ -122,7 +107,6 @@ class OgpaList extends Component {
           <OgpaListTable
             ogpa={ogpa}
             currentPage={currentPage}
-            pageSize={pageSize}
             handlePageChange={this.handlePageChange}
             handleInputChange={this.handleInputChange}
             handleInputErrors={this.handleInputErrors}

@@ -1,10 +1,11 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import TableHeader from "../common/tableHeader";
 import TableBody from "../common/tableBody";
 import OgpaModal from "../modals/ogpa";
+import { notification } from 'antd';
 
 const OgpaListTable = (props) => {
+  const [api, contextHolder] = notification.useNotification();
   const {
     ogpa,
     currentPage,
@@ -29,19 +30,19 @@ const OgpaListTable = (props) => {
     {
       path: "name",
       label: "Name",
-      content: (ogpa) => ogpa.name,
+      content: (ogpa) => <>{ogpa.name} <span style={{cursor: "pointer"}} onClick={() => copyUrlname(ogpa.name)}>📄</span></>,
     },
     {
       key: "email",
       path: "email",
       label: "Email",
-      content: (ogpa) => ogpa.email,
+      content: (ogpa) => <>{ogpa.email} <span style={{cursor: "pointer"}} onClick={() => copyUrlname(ogpa.email)}>📄</span></>,
     },
     {
       key: "password",
       path: "password",
       label: "Password",
-      content: (ogpa) => ogpa.password,
+      content: (ogpa) => <>{ogpa.password} <span style={{cursor: "pointer"}} onClick={() => copyUrlname(ogpa.password)}>📄</span></>,
     },
     {
       key: "mobile",
@@ -99,11 +100,26 @@ const OgpaListTable = (props) => {
     },
   ];
 
+  const copyUrlname = (urlname) => {
+    navigator.clipboard.writeText(urlname);
+    openNotification('top', urlname);
+  }
+
+  const openNotification = (placement, urlname) => {
+    api.info({
+      message: `Copied ${urlname}`,
+      placement,
+    });
+  };
+
   return (
-    <table className="table">
-      <TableHeader columns={columns} onSort={onSort} />
-      <TableBody columns={columns} data={ogpa} currentPage={currentPage} pageSize={pageSize} />
-    </table>
+    <>
+      {contextHolder}
+      <table className="table">
+        <TableHeader columns={columns} onSort={onSort} />
+        <TableBody columns={columns} data={ogpa} currentPage={currentPage} pageSize={pageSize} />
+      </table>
+    </>
   );
 };
 

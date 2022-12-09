@@ -88,6 +88,7 @@ const WithdrawTable = (props) => {
     <table className="table">
       <TableHeader
         columns={columns}
+        onSort={() => ""}
         // onSort={onSort}
       />
       <TableBody columns={columns} data={upgrades.slice(currentPage * pageSize - pageSize, currentPage * pageSize)} currentPage={currentPage} pageSize={pageSize} />
