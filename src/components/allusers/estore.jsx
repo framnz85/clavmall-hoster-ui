@@ -3,6 +3,8 @@ import httpEstore from "../../services/httpEstore";
 import Pagination from "../common/pagination.jsx";
 import Navbar from "../common/navbar.jsx";
 import EstoreTable from "./estoreTable";
+import { Button } from 'antd';
+import { utils, writeFile } from 'xlsx';
 
 class Estore extends Component {
   state = {
@@ -93,6 +95,97 @@ class Estore extends Component {
     this.setState({ sortkey, sort }, () => this.handlePageChange(1));
   };
 
+  handleExport = async () => {
+    const imageDir = "https://clavstoreimages.etnants.com/estore_images/";
+    let productExp = [];
+    
+    const { itemsCount, sortkey, sort, skip, inputValues } = this.state;
+
+    const { data } = await httpEstore.getEstores(
+      sortkey,
+      sort,
+      skip,
+      itemsCount,
+      inputValues.searchQuery
+    );
+
+    for (let i = 0; i < data.estores.length; i++){
+      const estore = data.estores[i];
+      const index = i + 1;
+      let images = "";
+      let locations = "";
+      estore.carouselImages && estore.carouselImages.map(img => {
+        images = images + imageDir + "estore" + estore._id + "/" + img.url + ", ";
+        return img.url;
+      });
+      const { countries, addiv1s, addiv2s, addiv3s } = await httpEstore.getEstoreLocation(estore._id, estore.country);
+      if (!countries.data.err) {
+        countries.data.map(country => {
+          locations = locations + country.name + ", ";
+          return country;
+        })
+      }
+      if (!addiv1s.data.err) {
+        addiv1s.data.map(addiv1 => {
+          locations = locations + addiv1.name + ", ";
+          return addiv1;
+        })
+      }
+      if (!addiv2s.data.err) {
+        addiv2s.data.map(addiv2 => {
+          locations = locations + addiv2.name + ", ";
+          return addiv2;
+        })
+      }
+      if (!addiv3s.data.err) {
+        addiv3s.data.map(addiv3 => {
+          locations = locations + addiv3.name + ", ";
+          return addiv3;
+        })
+      }
+      const result = {
+        _id: index + 1,
+        type: "simple",
+        sku: estore._id,
+        name: estore.name,
+        published: "1",
+        isFeatured: "1",
+        visibility: "visible",
+        shortDesc: "",
+        description: "Serving locations of " + locations,
+        inStock: "1",
+        allowCust: "1",
+        categories: "grocery, online grocery, online store",
+        tags: "grocery, online, product",
+        images
+      }
+      productExp.push(result);
+    }
+        
+    const headings = [[
+      'ID',
+      'Type',
+      'SKU',
+      'Name',
+      'Published',
+      'Is featured?',
+      'Visibility in catalog',
+      'Short description',
+      'Description',
+      'In stock?',
+      'Allow customer reviews?',
+      'Categories',
+      'Tags',
+      'Images',
+    ]];
+    const wb = utils.book_new();
+    const ws = utils.json_to_sheet([]);
+    utils.sheet_add_aoa(ws, headings);
+    utils.sheet_add_json(ws, productExp, { origin: 'A2', skipHeader: true });
+    utils.book_append_sheet(wb, ws, 'Report');
+    writeFile(wb, 'Estores.xlsx');
+  };
+
   render() {
     const { itemsCount, estores, pageSize, currentPage, inputValues, errors } =
       this.state;
@@ -113,6 +206,9 @@ class Estore extends Component {
             errors={errors}
             onSort={this.handleSort}
           />
+          <Button type="primary" size="large" onClick={this.handleExport}>
+            Catalog Export
+          </Button>
           <Pagination
             itemsCount={itemsCount}
             pageSize={pageSize}

@@ -87,20 +87,24 @@ Here's what you need to do:
 
 1. Go to your website https://${estore.urlname1}.clavstore.com then login using these details:
 
-Email: ${estore.email}
-Password: ${estore.showPass}
+    Email: ${estore.email}
+    Password: ${estore.showPass}
 
-Make sure to type in the exact email and password so you will be automatically an admin once you successfully login to your website.
+    Make sure to type in the exact email and password so you will be automatically an admin once you successfully login to your website.
 
-2. There is a video tutorial I have created for your reference inside your website. Just go to your admin page then go to "Guide".
+2. Once logged in, you need to verify your email address before you can fully utilize all the functionality of your website. 
 
-3. Update/Change the Mark-up of your products prices para may income ka pagmay bumili na. You can update it individually or by Category/Sub-Category.
+    An instruction on how to verify your email address is on the "Guide" section of your admin page.
 
-4. We are giving you a 3 months trial period to arrange all the things inside your account. Once everything is ok, you can then start promoting your website to get clients.
+3. Also, there are video tutorials I have created for your reference inside your website. Just go to your admin page then go to "Guide".
 
-5. If you have any questions regarding your website, don't push too much because we will be intensively discussing it in our workshop. Your first lesson is on its way by Monday morning.
+4. Update/Change the Mark-up of your products prices para may income ka pagmay bumili na. You can update it individually or by Category/Sub-Category.
 
-6. Lastly, if you have other questions about your website don't hesitate to contact me by replying to this email.
+5. We are giving you a 3 months trial period to arrange all the things inside your account. Once everything is ok, you can then start promoting your website to get clients.
+
+6. If you have any questions regarding your website, don't push too much because we will be intensively discussing it in our workshop. Your first lesson is on its way by Monday morning.
+
+7. Lastly, if you have other questions about your website don't hesitate to contact me by replying to this email.
 
 Thanks a lot and congrats on your new website!
 

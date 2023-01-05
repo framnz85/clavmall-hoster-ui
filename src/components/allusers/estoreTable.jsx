@@ -67,7 +67,18 @@ const EstoreTable = (props) => {
       label: "Owner",
       content: (estore) => estore.owner,
     },
-    { key: "status", path: "status", label: "Status", content: (estore) => <span style={{color: estore.status === "active" ? "green" : "red"}}>{estore.status}</span> },
+    {
+      key: "endDate",
+      path: "endDate",
+      label: "End Date",
+      content: (estore) => estore.endDate && ((new Date(estore.endDate)).getFullYear() + "-" + String((new Date(estore.endDate)).getMonth() + 1).padStart(2, '0') + "-" + String((new Date(estore.endDate)).getDate()).padStart(2, '0')),
+    },
+    {
+      key: "status",
+      path: "status",
+      label: "Status",
+      content: (estore) => <span style={{ color: estore.status === "active" ? "green" : "red" }}>{estore.status}</span>
+    },
     {
       key: "modal",
       content: (estore) => (
