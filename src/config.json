@@ -1,6 +1,6 @@
 {
-    "apiUrlLive": "http://hoster-api.clavmall.com:3900/",
-    "apiUrlLive2": "https://estore-api.clavstore.com/api/",
-    "apiUrl": "http://localhost:3900/",
-    "apiUrl2": "http://localhost:8000/api/"
+    "apiUrl": "http://hoster-api.clavmall.com:3900/",
+    "apiUrl2": "https://estore-api.clavstore.com/api/",
+    "apiUrlLive": "http://localhost:3900/",
+    "apiUrlLive2": "http://localhost:8000/api/"
 }

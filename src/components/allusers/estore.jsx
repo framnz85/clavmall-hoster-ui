@@ -98,6 +98,10 @@ class Estore extends Component {
   handleExport = async () => {
     const imageDir = "https://clavstoreimages.etnants.com/estore_images/";
     let productExp = [];
+    let estore = {};
+    let index = 0;
+    let images = "";
+    let locations = "";
     
     const { itemsCount, sortkey, sort, skip, inputValues } = this.state;
 
@@ -110,10 +114,10 @@ class Estore extends Component {
     );
 
     for (let i = 0; i < data.estores.length; i++){
-      const estore = data.estores[i];
-      const index = i + 1;
-      let images = "";
-      let locations = "";
+      estore = data.estores[i];
+      index = i + 1;
+      images = "";
+      locations = "";
       estore.carouselImages && estore.carouselImages.map(img => {
         images = images + imageDir + "estore" + estore._id + "/" + img.url + ", ";
         return img.url;
@@ -121,25 +125,33 @@ class Estore extends Component {
       const { countries, addiv1s, addiv2s, addiv3s } = await httpEstore.getEstoreLocation(estore._id, estore.country);
       if (!countries.data.err) {
         countries.data.map(country => {
-          locations = locations + country.name + ", ";
+          if (locations.length < 32000) {
+            locations = locations + country.name + ", ";
+          }
           return country;
         })
       }
       if (!addiv1s.data.err) {
         addiv1s.data.map(addiv1 => {
-          locations = locations + addiv1.name + ", ";
+          if (locations.length < 32000) {
+            locations = locations + addiv1.name + ", ";
+          }
           return addiv1;
         })
       }
       if (!addiv2s.data.err) {
         addiv2s.data.map(addiv2 => {
-          locations = locations + addiv2.name + ", ";
+          if (locations.length < 32000) {
+            locations = locations + addiv2.name + ", ";
+          }
           return addiv2;
         })
       }
       if (!addiv3s.data.err) {
         addiv3s.data.map(addiv3 => {
-          locations = locations + addiv3.name + ", ";
+          if (locations.length < 32000) {
+            locations = locations + addiv3.name + ", ";
+          }
           return addiv3;
         })
       }
