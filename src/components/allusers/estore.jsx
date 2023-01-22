@@ -98,10 +98,7 @@ class Estore extends Component {
   handleExport = async () => {
     const imageDir = "https://clavstoreimages.etnants.com/estore_images/";
     let productExp = [];
-    let estore = {};
     let index = 0;
-    let images = "";
-    let locations = "";
     
     const { itemsCount, sortkey, sort, skip, inputValues } = this.state;
 
@@ -113,7 +110,7 @@ class Estore extends Component {
       inputValues.searchQuery
     );
 
-    for (let i = 0; i < data.estores.length; i++){
+    for (let i = 0, estore = {}, images = "", locations = ""; i < data.estores.length; i++){
       estore = data.estores[i];
       index = i + 1;
       images = "";
@@ -125,7 +122,7 @@ class Estore extends Component {
       const { countries, addiv1s, addiv2s, addiv3s } = await httpEstore.getEstoreLocation(estore._id, estore.country);
       if (!countries.data.err) {
         countries.data.map(country => {
-          if (locations.length < 32000) {
+          if (locations.length < 5000) {
             locations = locations + country.name + ", ";
           }
           return country;
@@ -133,7 +130,7 @@ class Estore extends Component {
       }
       if (!addiv1s.data.err) {
         addiv1s.data.map(addiv1 => {
-          if (locations.length < 32000) {
+          if (locations.length < 5000) {
             locations = locations + addiv1.name + ", ";
           }
           return addiv1;
@@ -141,7 +138,7 @@ class Estore extends Component {
       }
       if (!addiv2s.data.err) {
         addiv2s.data.map(addiv2 => {
-          if (locations.length < 32000) {
+          if (locations.length < 5000) {
             locations = locations + addiv2.name + ", ";
           }
           return addiv2;
@@ -149,7 +146,7 @@ class Estore extends Component {
       }
       if (!addiv3s.data.err) {
         addiv3s.data.map(addiv3 => {
-          if (locations.length < 32000) {
+          if (locations.length < 5000) {
             locations = locations + addiv3.name + ", ";
           }
           return addiv3;
